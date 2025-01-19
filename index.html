@@ -6,8 +6,6 @@
     <title>BizBlog Web App</title>
     <style>
         body {
-            background-color: #ffffff;
-            color: #000000;
             font-family: Arial, sans-serif;
             text-align: center;
             display: flex;
@@ -16,6 +14,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            transition: background-color 0.3s, color 0.3s;
         }
         button {
             padding: 10px 20px;
@@ -38,33 +37,48 @@
     <script>
         console.log("Web App загружается...");
 
-        // Подключение к Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Расширяем Web App
+        tg.expand();
+
+        // Функция для установки темы
+        function applyTheme() {
+            const themeParams = tg.themeParams;
+            console.log("Параметры темы:", themeParams);
+
+            if (themeParams) {
+                document.body.style.backgroundColor = themeParams.bg_color || "#ffffff";
+                document.body.style.color = themeParams.text_color || "#000000";
+                const buttons = document.querySelectorAll("button");
+                buttons.forEach(button => {
+                    button.style.backgroundColor = themeParams.button_color || "#4CAF50";
+                    button.style.color = themeParams.button_text_color || "#ffffff";
+                });
+            }
+        }
+
+        // Слушаем изменения темы
+        tg.onEvent("themeChanged", applyTheme);
+
+        // Применяем текущую тему при загрузке
+        applyTheme();
+
+        // Работа с данными Telegram
         try {
-            const tg = window.Telegram.WebApp;
-
-            // Расширяем Web App
-            tg.expand();
-            console.log("Telegram Web App подключено!");
-
-            // Получаем данные Telegram
             const initData = tg.initDataUnsafe;
             console.log("Данные Telegram:", initData);
 
-            const messageElement = document.getElementById("message");
-
             if (initData && initData.user) {
-                console.log("Данные пользователя:", initData.user);
-                messageElement.textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
-
-                // Показываем кнопки
+                document.getElementById("message").textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
                 document.getElementById("roleBlogger").style.display = "block";
                 document.getElementById("roleAdvertiser").style.display = "block";
             } else {
+                document.getElementById("message").textContent = "Не удалось загрузить данные пользователя.";
                 console.warn("Данные пользователя отсутствуют.");
-                messageElement.textContent = "Не удалось загрузить данные пользователя.";
             }
 
-            // Обработчики кнопок
+            // Обработка кнопок
             document.getElementById("roleBlogger").onclick = () => {
                 tg.sendData("blogger");
                 alert("Вы выбрали: Блогер");
