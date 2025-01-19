@@ -1,65 +1,105 @@
-from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import Application, CommandHandler, ContextTypes
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizBlog Web App</title>
+    <style>
+        :root {
+            /* Цвета для светлой темы */
+            --bg-color-light: #ffffff;
+            --text-color-light: #000000;
+            --button-bg-light: #4CAF50;
+            --button-text-light: #ffffff;
 
-# Токен вашего бота
-API_TOKEN = "7555314407:AAHaAfkCJD0YpQFEc1UCtzlnLW12GoS6HBY"
+            /* Цвета для тёмной темы */
+            --bg-color-dark: #1e1e1e;
+            --text-color-dark: #ffffff;
+            --button-bg-dark: #4CAF50;
+            --button-text-dark: #ffffff;
+        }
 
-# URL мини-приложения
-WEB_APP_URL = "https://mars715.github.io/bizblog-webapp/"
+        /* Основной стиль для светлой темы */
+        body {
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
 
-# Команда /start
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.effective_chat.id
-    user_name = update.effective_user.first_name
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: var(--button-bg-light);
+            color: var(--button-text-light);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
 
-    # Кнопка для запуска Web App
-    keyboard = [
-        [
-            InlineKeyboardButton(
-                text="Открыть BizBlog",
-                web_app={"url": WEB_APP_URL}
-            )
-        ]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+        button:hover {
+            opacity: 0.9;
+        }
 
-    # Отправляем сообщение с кнопкой
-    await context.bot.send_message(
-        chat_id=chat_id,
-        text=f"👋 Привет, {user_name}! Нажмите кнопку ниже, чтобы открыть приложение.",
-        reply_markup=reply_markup
-    )
+        /* Настройки для тёмной темы */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-color-dark);
+                color: var(--text-color-dark);
+            }
 
-# Команда /role для выбора ролей
-async def role(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.effective_chat.id
+            button {
+                background-color: var(--button-bg-dark);
+                color: var(--button-text-dark);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Добро пожаловать в BizBlog!</h1>
+    <p id="message">Загрузка...</p>
+    <button id="roleBlogger" style="display: none;">Я Блогер</button>
+    <button id="roleAdvertiser" style="display: none;">Я Рекламодатель</button>
 
-    # Кнопки для выбора роли
-    keyboard = [
-        [
-            InlineKeyboardButton("Я Блогер", callback_data="blogger"),
-            InlineKeyboardButton("Я Рекламодатель", callback_data="advertiser"),
-        ]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    <script>
+        const tg = window.Telegram.WebApp;
 
-    # Сообщение с кнопками
-    await context.bot.send_message(
-        chat_id=chat_id,
-        text="Пожалуйста, выберите, кто вы:",
-        reply_markup=reply_markup
-    )
+        // Расширяем WebApp
+        tg.expand();
 
-# Запуск бота
-def main():
-    application = Application.builder().token(API_TOKEN).build()
+        // Проверяем подключение к Telegram
+        const initData = tg.initDataUnsafe;
+        console.log("Telegram WebApp Data:", initData);
 
-    # Обработчики команд
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("role", role))
+        // Элемент для сообщения
+        const messageElement = document.getElementById("message");
 
-    # Запуск polling
-    application.run_polling()
+        // Проверка роли пользователя (пример использования данных)
+        if (initData && initData.user) {
+            messageElement.textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
+            document.getElementById("roleBlogger").style.display = "block";
+            document.getElementById("roleAdvertiser").style.display = "block";
+        } else {
+            messageElement.textContent = "Не удалось получить данные пользователя.";
+        }
 
-if __name__ == "__main__":
-    main()
+        // Обработка кнопок
+        document.getElementById("roleBlogger").onclick = () => {
+            tg.sendData("blogger");
+            alert("Вы выбрали: Блогер");
+        };
+
+        document.getElementById("roleAdvertiser").onclick = () => {
+            tg.sendData("advertiser");
+            alert("Вы выбрали: Рекламодатель");
+        };
+    </script>
+</body>
+</html>
