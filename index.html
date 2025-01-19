@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline'; connect-src 'self' https://telegram.org;">
-    <title>BizBlog Web App</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline';">
+    <title>BizBlog</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Добро пожаловать в BizBlog!</h1>
-    <p id="message">Загрузка...</p>
-    <button id="roleBlogger" style="display: none;">Я Блогер</button>
-    <button id="roleAdvertiser" style="display: none;">Я Рекламодатель</button>
+    <div class="container">
+        <h1>Добро пожаловать в BizBlog!</h1>
+        <p id="message">Загрузка...</p>
+        <div class="buttons">
+            <button id="blogger" class="btn green">Я Блогер</button>
+            <button id="advertiser" class="btn blue">Я Рекламодатель</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

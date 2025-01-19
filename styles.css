@@ -1,26 +1,73 @@
+/* Основной стиль */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #000000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
     text-align: center;
+    padding: 20px;
 }
+
 h1 {
-    font-size: 2.5em;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
-button {
-    margin: 10px;
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn {
     padding: 10px 20px;
-    font-size: 1em;
+    font-size: 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-#roleBlogger {
-    background-color: #28a745;
+
+.green {
+    background-color: #4CAF50;
     color: white;
 }
-#roleAdvertiser {
-    background-color: #007bff;
+
+.green:hover {
+    background-color: #45a049;
+}
+
+.blue {
+    background-color: #008CBA;
     color: white;
+}
+
+.blue:hover {
+    background-color: #007bb5;
+}
+
+/* Темная тема */
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --text-color: #ffffff;
+    }
 }
