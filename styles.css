@@ -1,39 +1,26 @@
-/* Общие стили для веб-приложения */
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
     text-align: center;
-    transition: background-color 0.3s, color 0.3s;
 }
-
-/* Текст сообщения */
-#message {
-    font-size: 1.5rem;
-    margin-top: 20px;
+h1 {
+    font-size: 2.5em;
 }
-
-/* Кнопки */
 button {
     margin: 10px;
     padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
+    font-size: 1em;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
 }
-
-button#roleBlogger {
-    background-color: #4CAF50;
+#roleBlogger {
+    background-color: #28a745;
     color: white;
 }
-
-button#roleAdvertiser {
-    background-color: #2196F3;
+#roleAdvertiser {
+    background-color: #007bff;
     color: white;
-}
-
-button:hover {
-    opacity: 0.8;
 }

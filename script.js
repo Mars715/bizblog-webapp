@@ -9,8 +9,8 @@ if (window.Telegram && window.Telegram.WebApp) {
     document.body.style.color = themeParams.text_color || "#000000";
 
     document.getElementById("message").textContent = "Выберите вашу роль:";
-    document.getElementById("roleBlogger").style.display = "block";
-    document.getElementById("roleAdvertiser").style.display = "block";
+    document.getElementById("roleBlogger").style.display = "inline-block";
+    document.getElementById("roleAdvertiser").style.display = "inline-block";
 
     document.getElementById("roleBlogger").onclick = () => {
         tg.sendData("blogger");
