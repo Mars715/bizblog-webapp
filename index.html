@@ -5,24 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizBlog Web App</title>
     <style>
-        :root {
-            /* Основные цвета для светлой темы */
-            --bg-color-light: #ffffff;
-            --text-color-light: #000000;
-            --button-bg-light: #4CAF50;
-            --button-text-light: #ffffff;
-
-            /* Основные цвета для тёмной темы */
-            --bg-color-dark: #1e1e1e;
-            --text-color-dark: #ffffff;
-            --button-bg-dark: #4CAF50;
-            --button-text-dark: #ffffff;
-        }
-
-        /* По умолчанию светлая тема */
         body {
-            background-color: var(--bg-color-light);
-            color: var(--text-color-light);
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -30,42 +13,41 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            text-align: center;
         }
-
+        h1 {
+            color: #4CAF50;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: var(--button-bg-light);
-            color: var(--button-text-light);
+            background-color: #4CAF50;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        /* Для тёмной темы */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: var(--bg-color-dark);
-                color: var(--text-color-dark);
-            }
-
-            button {
-                background-color: var(--button-bg-dark);
-                color: var(--button-text-dark);
-            }
         }
     </style>
 </head>
 <body>
     <h1>Добро пожаловать в BizBlog!</h1>
-    <p>Пожалуйста, выберите, кто вы:</p>
-    <button onclick="alert('Вы выбрали: Блогер')">Я Блогер</button>
-    <button onclick="alert('Вы выбрали: Рекламодатель')">Я Рекламодатель</button>
+    <p id="message">Загрузка...</p>
+    <script>
+        // Получаем данные от Telegram
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        // Пример данных, полученных из Telegram (заменить на реальные)
+        const userRole = tg.initDataUnsafe.user.role || "undefined"; // Роль пользователя
+
+        // Обновляем интерфейс
+        const messageElement = document.getElementById("message");
+        if (userRole === "blogger") {
+            messageElement.textContent = "Вы Блогер! Вот список заявок.";
+        } else if (userRole === "advertiser") {
+            messageElement.textContent = "Вы Рекламодатель! Создайте свою заявку.";
+        } else {
+            messageElement.textContent = "Пожалуйста, выберите роль.";
+        }
+    </script>
 </body>
 </html>
