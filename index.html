@@ -6,6 +6,8 @@
     <title>BizBlog Web App</title>
     <style>
         body {
+            background-color: #ffffff;
+            color: #000000;
             font-family: Arial, sans-serif;
             text-align: center;
             display: flex;
@@ -14,7 +16,6 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            transition: background-color 0.3s, color 0.3s;
         }
         button {
             padding: 10px 20px;
@@ -35,64 +36,49 @@
     <button id="roleAdvertiser" style="display: none;">Я Рекламодатель</button>
 
     <script>
+        // Подключение к Telegram Web App
         const tg = window.Telegram.WebApp;
-
-        console.log("Web App загружается...");
 
         // Расширяем Web App
         tg.expand();
 
-        // Применяем параметры темы
-        function applyTheme() {
-            const themeParams = tg.themeParams || {};
-            console.log("Параметры темы:", themeParams);
+        // Отладочная информация
+        console.log("Telegram Web App подключено!");
 
-            // Применяем цвета или используем дефолтные
-            const isDarkTheme = themeParams.bg_color === "#000000" || window.matchMedia("(prefers-color-scheme: dark)").matches;
-            document.body.style.backgroundColor = isDarkTheme ? "#000000" : "#ffffff";
-            document.body.style.color = isDarkTheme ? "#FFFFFF" : "#000000";
+        // Элемент для сообщения
+        const messageElement = document.getElementById("message");
 
-            const buttons = document.querySelectorAll("button");
-            buttons.forEach(button => {
-                button.style.backgroundColor = themeParams.button_color || "#4CAF50";
-                button.style.color = themeParams.button_text_color || "#FFFFFF";
-            });
-        }
-
-        // Применяем тему при загрузке
-        applyTheme();
-
-        // Обновляем тему при изменении
-        tg.onEvent("themeChanged", applyTheme);
-
-        // Работа с Telegram
         try {
+            // Получаем данные Telegram Web App
             const initData = tg.initDataUnsafe;
             console.log("Данные Telegram:", initData);
 
             if (initData && initData.user) {
-                document.getElementById("message").textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
+                // Если данные о пользователе получены
+                messageElement.textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
                 document.getElementById("roleBlogger").style.display = "block";
                 document.getElementById("roleAdvertiser").style.display = "block";
             } else {
-                document.getElementById("message").textContent = "Не удалось загрузить данные пользователя.";
-                console.warn("Данные пользователя отсутствуют.");
+                // Если данные пользователя отсутствуют
+                messageElement.textContent = "Не удалось загрузить данные пользователя.";
+                console.error("Нет данных пользователя.");
             }
-
-            // Обработка кнопок
-            document.getElementById("roleBlogger").onclick = () => {
-                tg.sendData("blogger");
-                alert("Вы выбрали: Блогер");
-            };
-
-            document.getElementById("roleAdvertiser").onclick = () => {
-                tg.sendData("advertiser");
-                alert("Вы выбрали: Рекламодатель");
-            };
         } catch (error) {
-            console.error("Ошибка подключения к Telegram Web App:", error);
-            document.getElementById("message").textContent = "Ошибка подключения к Telegram.";
+            // Если произошла ошибка
+            messageElement.textContent = "Ошибка подключения к Telegram.";
+            console.error("Ошибка:", error);
         }
+
+        // Обработка кнопок
+        document.getElementById("roleBlogger").onclick = () => {
+            tg.sendData("blogger");
+            alert("Вы выбрали: Блогер");
+        };
+
+        document.getElementById("roleAdvertiser").onclick = () => {
+            tg.sendData("advertiser");
+            alert("Вы выбрали: Рекламодатель");
+        };
     </script>
 </body>
 </html>
