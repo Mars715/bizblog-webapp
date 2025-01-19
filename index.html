@@ -42,19 +42,20 @@
         // Расширяем Web App
         tg.expand();
 
-        // Функция для применения темы
+        // Применяем параметры темы
         function applyTheme() {
             const themeParams = tg.themeParams || {};
             console.log("Параметры темы:", themeParams);
 
-            // Устанавливаем цвета темы
-            document.body.style.backgroundColor = themeParams.bg_color || "#ffffff";
-            document.body.style.color = themeParams.text_color || "#000000";
+            // Применяем цвета или используем дефолтные
+            const isDarkTheme = themeParams.bg_color === "#000000" || window.matchMedia("(prefers-color-scheme: dark)").matches;
+            document.body.style.backgroundColor = isDarkTheme ? "#000000" : "#ffffff";
+            document.body.style.color = isDarkTheme ? "#FFFFFF" : "#000000";
 
             const buttons = document.querySelectorAll("button");
             buttons.forEach(button => {
                 button.style.backgroundColor = themeParams.button_color || "#4CAF50";
-                button.style.color = themeParams.button_text_color || "#ffffff";
+                button.style.color = themeParams.button_text_color || "#FFFFFF";
             });
         }
 
@@ -64,7 +65,7 @@
         // Обновляем тему при изменении
         tg.onEvent("themeChanged", applyTheme);
 
-        // Работа с данными Telegram
+        // Работа с Telegram
         try {
             const initData = tg.initDataUnsafe;
             console.log("Данные Telegram:", initData);
@@ -78,6 +79,7 @@
                 console.warn("Данные пользователя отсутствуют.");
             }
 
+            // Обработка кнопок
             document.getElementById("roleBlogger").onclick = () => {
                 tg.sendData("blogger");
                 alert("Вы выбрали: Блогер");
