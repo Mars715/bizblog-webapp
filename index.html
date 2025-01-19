@@ -36,36 +36,48 @@
     <button id="roleAdvertiser" style="display: none;">Я Рекламодатель</button>
 
     <script>
-        const tg = window.Telegram.WebApp;
+        console.log("Web App загружается...");
 
-        tg.expand();
-
-        const messageElement = document.getElementById("message");
-
+        // Подключение к Telegram Web App
         try {
+            const tg = window.Telegram.WebApp;
+
+            // Расширяем Web App
+            tg.expand();
+            console.log("Telegram Web App подключено!");
+
+            // Получаем данные Telegram
             const initData = tg.initDataUnsafe;
+            console.log("Данные Telegram:", initData);
+
+            const messageElement = document.getElementById("message");
 
             if (initData && initData.user) {
+                console.log("Данные пользователя:", initData.user);
                 messageElement.textContent = `Привет, ${initData.user.first_name}! Выберите вашу роль:`;
+
+                // Показываем кнопки
                 document.getElementById("roleBlogger").style.display = "block";
                 document.getElementById("roleAdvertiser").style.display = "block";
             } else {
+                console.warn("Данные пользователя отсутствуют.");
                 messageElement.textContent = "Не удалось загрузить данные пользователя.";
             }
+
+            // Обработчики кнопок
+            document.getElementById("roleBlogger").onclick = () => {
+                tg.sendData("blogger");
+                alert("Вы выбрали: Блогер");
+            };
+
+            document.getElementById("roleAdvertiser").onclick = () => {
+                tg.sendData("advertiser");
+                alert("Вы выбрали: Рекламодатель");
+            };
         } catch (error) {
-            messageElement.textContent = "Ошибка подключения к Telegram.";
-            console.error(error);
+            console.error("Ошибка подключения к Telegram Web App:", error);
+            document.getElementById("message").textContent = "Ошибка подключения к Telegram.";
         }
-
-        document.getElementById("roleBlogger").onclick = () => {
-            tg.sendData("blogger");
-            alert("Вы выбрали: Блогер");
-        };
-
-        document.getElementById("roleAdvertiser").onclick = () => {
-            tg.sendData("advertiser");
-            alert("Вы выбрали: Рекламодатель");
-        };
     </script>
 </body>
 </html>
