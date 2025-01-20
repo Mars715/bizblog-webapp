@@ -1,26 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Проверяем доступность Telegram WebApp API
-    if (window.Telegram?.WebApp) {
-        console.log("Telegram WebApp API доступен");
-        const tg = window.Telegram.WebApp;
+    try {
+        const webApp = window.Telegram.WebApp;
+        console.log("Telegram WebApp API loaded:", webApp);
 
-        // Подготавливаем WebApp
-        tg.ready();
+        // Update loading text and show buttons
+        document.getElementById("loading-text").innerText = "Выберите вашу роль:";
+        document.getElementById("buttons").style.display = "block";
 
-        // Проверяем данные, переданные в WebApp
-        console.log("initData:", tg.initData);
-        console.log("initDataUnsafe:", tg.initDataUnsafe);
-
-        // События на кнопках
+        // Button handlers
         document.getElementById("blogger").addEventListener("click", () => {
-            tg.sendData(JSON.stringify({ role: "blogger" }));
+            webApp.close();
         });
 
         document.getElementById("advertiser").addEventListener("click", () => {
-            tg.sendData(JSON.stringify({ role: "advertiser" }));
+            webApp.close();
         });
-    } else {
-        console.error("Telegram WebApp API недоступен");
+    } catch (error) {
+        console.error("Telegram WebApp API недоступен:", error);
         document.getElementById("loading-text").innerText = "Ошибка подключения к Telegram Web App.";
     }
 });
