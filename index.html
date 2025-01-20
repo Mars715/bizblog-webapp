@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://telegram.org 'unsafe-inline';
+        script-src 'self' 'unsafe-inline' https://telegram.org;
         style-src 'self' 'unsafe-inline';
-        connect-src 'self' https://telegram.org;
-        frame-src 'self' https://telegram.org;
-        img-src 'self' data: https:;
-        font-src 'self' data:;">
+        connect-src 'self' https://api.telegram.org;
+    ">
     <title>BizBlog</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div id="app">
         <h1>Добро пожаловать в BizBlog!</h1>
         <p id="loading-text">Загрузка...</p>
-        <div id="role-selection" style="display: none;">
-            <button id="blogger-button" class="button blogger">Я Блогер</button>
-            <button id="advertiser-button" class="button advertiser">Я Рекламодатель</button>
+        <div id="buttons">
+            <button id="blogger" class="btn">Я Блогер</button>
+            <button id="advertiser" class="btn">Я Рекламодатель</button>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
