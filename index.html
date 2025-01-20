@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' https://web.telegram.org https://ritrag.com;
-        style-src 'self' 'unsafe-inline';
-        connect-src 'self' https://api.telegram.org https://ritrag.com;
-        frame-src https://web.telegram.org;
+        default-src * 'unsafe-inline' 'unsafe-eval';
+        script-src * 'unsafe-inline' 'unsafe-eval';
+        style-src * 'unsafe-inline';
+        connect-src *;
+        frame-src *;
     ">
     <title>BizBlog</title>
     <link rel="stylesheet" href="styles.css">
@@ -22,12 +22,6 @@
             <button id="advertiser" class="btn">Я Рекламодатель</button>
         </div>
     </div>
-    <script>
-        try {
-            console.log(window.Telegram.WebApp); // Проверка доступности WebApp API
-        } catch (error) {
-            console.error("Ошибка инициализации WebApp API:", error);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
