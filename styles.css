@@ -1,20 +1,21 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: #333;
 }
 
 #app {
     text-align: center;
     background: #fff;
-    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -22,34 +23,30 @@ h1 {
     margin-bottom: 10px;
 }
 
-p {
-    font-size: 16px;
-    color: #555;
-}
-
-#buttons {
-    margin-top: 20px;
+#loading-text {
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .btn {
     padding: 10px 20px;
     font-size: 16px;
+    margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 0 5px;
 }
 
 #blogger {
-    background-color: #28a745;
+    background-color: #4CAF50;
     color: white;
 }
 
 #advertiser {
-    background-color: #007bff;
+    background-color: #008CBA;
     color: white;
 }
 
 .btn:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }

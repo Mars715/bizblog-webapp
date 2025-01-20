@@ -1,22 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const loadingText = document.getElementById("loading-text");
+    const bloggerButton = document.getElementById("blogger");
+    const advertiserButton = document.getElementById("advertiser");
+
     try {
         const webApp = window.Telegram.WebApp;
-        console.log("Telegram WebApp API loaded:", webApp);
 
-        // Update loading text and show buttons
-        document.getElementById("loading-text").innerText = "Выберите вашу роль:";
-        document.getElementById("buttons").style.display = "block";
+        if (!webApp) {
+            throw new Error("Telegram WebApp API не инициализировался.");
+        }
 
-        // Button handlers
-        document.getElementById("blogger").addEventListener("click", () => {
-            webApp.close();
+        console.log("Telegram WebApp API загружен:", webApp);
+        loadingText.textContent = "Добро пожаловать!";
+        
+        bloggerButton.addEventListener("click", () => {
+            webApp.close(); // Или любое действие
         });
 
-        document.getElementById("advertiser").addEventListener("click", () => {
-            webApp.close();
+        advertiserButton.addEventListener("click", () => {
+            webApp.close(); // Или любое действие
         });
     } catch (error) {
-        console.error("Telegram WebApp API недоступен:", error);
-        document.getElementById("loading-text").innerText = "Ошибка подключения к Telegram Web App.";
+        console.error("Ошибка инициализации Telegram WebApp API:", error);
+        loadingText.textContent = "Ошибка подключения к Telegram Web App.";
     }
 });
