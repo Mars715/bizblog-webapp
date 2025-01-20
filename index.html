@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://telegram.org https://web.telegram.org https://ritrag.com 'unsafe-inline' 'unsafe-eval';
+        script-src 'self' https://telegram.org https://web.telegram.org;
         style-src 'self' 'unsafe-inline';
-        connect-src 'self' https://api.telegram.org https://web.telegram.org https://ritrag.com;
+        connect-src 'self' https://api.telegram.org https://web.telegram.org;
     ">
     <title>BizBlog</title>
     <link rel="stylesheet" href="styles.css">
@@ -16,11 +16,12 @@
     <div id="app">
         <h1>Добро пожаловать в BizBlog!</h1>
         <p id="loading-text">Загрузка...</p>
-        <div id="buttons">
+        <div id="buttons" style="display: none;">
             <button id="blogger" class="btn">Я Блогер</button>
             <button id="advertiser" class="btn">Я Рекламодатель</button>
         </div>
     </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
