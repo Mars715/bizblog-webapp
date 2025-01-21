@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://telegram.org https://web.telegram.org https://ritrag.com;
+        script-src 'self' 'nonce-random12345' https://telegram.org https://web.telegram.org https://ritrag.com;
         connect-src 'self' https://api.telegram.org https://telegram.me https://web.telegram.org https://ritrag.com;
         style-src 'self' 'unsafe-inline';
         img-src 'self' data:;
@@ -23,6 +23,10 @@
             <button id="advertiser" class="btn">Я Рекламодатель</button>
         </div>
     </div>
+    <!-- Пример встроенного скрипта с nonce -->
+    <script nonce="random12345">
+        console.log('Nonce-based script executed!');
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
