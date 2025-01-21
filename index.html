@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' 'nonce-random12345' https://telegram.org https://web.telegram.org https://ritrag.com;
+        script-src 'self' 'nonce-uniqueNonce123' https://telegram.org https://web.telegram.org https://ritrag.com;
         connect-src 'self' https://api.telegram.org https://telegram.me https://web.telegram.org https://ritrag.com;
         style-src 'self' 'unsafe-inline';
         img-src 'self' data:;
@@ -23,9 +23,14 @@
             <button id="advertiser" class="btn">Я Рекламодатель</button>
         </div>
     </div>
-    <!-- Пример встроенного скрипта с nonce -->
-    <script nonce="random12345">
-        console.log('Nonce-based script executed!');
+    <!-- Inline script с nonce -->
+    <script nonce="uniqueNonce123">
+        // Проверяем доступность Telegram WebApp API
+        if (typeof Telegram === 'undefined' || !Telegram.WebApp) {
+            console.error('Ошибка инициализации Telegram WebApp API.');
+        } else {
+            console.log('Telegram WebApp API инициализирован.');
+        }
     </script>
     <script src="script.js"></script>
 </body>

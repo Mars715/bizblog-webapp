@@ -1,18 +1,23 @@
-document.addEventListener("DOMContentLoaded", () => {
-    if (window.Telegram?.WebApp) {
-        const webApp = window.Telegram.WebApp;
-        console.log("WebApp initialized:", webApp);
-        webApp.expand();
+// script.js
 
-        document.getElementById("blogger").addEventListener("click", () => {
-            webApp.showAlert("Блогер функция тестируется!");
-        });
-
-        document.getElementById("advertiser").addEventListener("click", () => {
-            webApp.showAlert("Рекламодатель функция тестируется!");
-        });
-    } else {
-        console.error("Telegram WebApp API недоступен. Проверьте настройки.");
-        document.getElementById("loading-text").textContent = "Ошибка инициализации WebApp.";
-    }
+// Инициализация кнопок
+document.getElementById('blogger').addEventListener('click', () => {
+    console.log('Блогер нажал на кнопку!');
+    alert('Добро пожаловать, блогер!');
 });
+
+document.getElementById('advertiser').addEventListener('click', () => {
+    console.log('Рекламодатель нажал на кнопку!');
+    alert('Добро пожаловать, рекламодатель!');
+});
+
+// Проверка WebAssembly и предотвращение его использования
+if (typeof WebAssembly !== 'undefined') {
+    console.warn('WebAssembly обнаружен, но не используется.');
+    WebAssembly.instantiate = function () {
+        throw new Error('WebAssembly запрещен в этом приложении.');
+    };
+    WebAssembly.compile = function () {
+        throw new Error('WebAssembly запрещен в этом приложении.');
+    };
+}
